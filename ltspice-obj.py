@@ -14,26 +14,21 @@ def valsPerLine(lines):
 def numLines(lines):
     return len(lines.split('\n'))
 
-def coords(inFile, outFile, x, y, z):
+def coords(table, x, y, z):
     inStr =  getTxt(table)
-    lineAmount = numLines(inStr)
     lineSize = valsPerLine(inStr)
-    lines = inStr[inStr.find('\n')+1:]
-    lines = lines.split()
- #   lines = list(map(float,lines))
-#    s = sum(lines); lines = [float(i)/s for i in lines]
+    lines = inStr.split()[lineSize:]
     lines = list(map(str,lines))
+    lineAmount = int(len(lines)/lineSize)
     outStr = ''
-
     for i in range(0,lineAmount):
         indx = i * lineSize
         outStr += 'v ' + lines[x + indx] + ' ' + lines[y + indx] + ' ' + lines[z + indx] + ' ' + '\n'
-
     for i in range (1,lineAmount - 1):
         outStr += 'l ' + str(i) + ' ' + str(i + 1) + '\n'
-
-    with open(outFile.replace('\\','/'), 'x') as f:
+    with open(r'E:\3d\turtleslurp.obj', 'x') as f:
         f.write(outStr)
+        
 
         
-coords(r'C:\Users\Noah\Documents\LTspiceXVII\Chuas Circuit.txt', r'E:\3d\turtleslurp.obj, 0, 1, 2)
+coords(r'C:\Users\Noah\Documents\LTspiceXVII\chaotic twin-t.txt', 3, 1, 2)
